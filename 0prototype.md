@@ -331,7 +331,227 @@ Fury800_Global_Voices_Display_Value_8.png      ← текущее значени
 ```
 
 ---
+# 🎛️ Fury800: Состояния и Ассеты Кнопок (Knobs Specification)
 
-> 💡 **Pro Tip**: Используйте Figma Variables + Modes для переключения тем (Dark/Light/Retro) без дублирования компонентов. Имя переменной: `btn/state/automation_ring`
+> ✅ Checklist-style, категория за категорией  
+> 🎯 Формат именования PNG: `Fury800_[Category]_Knob_[Type]_[State]_[Value].png`  
+> ⚠️ **Важно:** Для реализации в VST3 предпочтительнее SVG/Vector, но PNG используется для текстур/спрайтов или мокапов.
 
-Нужен шаблон Figma с готовыми Variants кнопок или CSV-манифест для批量-экспорта? Готов помочь! 🎹🔧
+---
+
+## 🧭 Типология Кнопок (Knob Types)
+
+| Тип | Размер | Использование | Пример параметров |
+|-----|--------|---------------|-------------------|
+| **Large Master** | 64×64px | Глобальные настройки | Volume, Gain, Brightness |
+| **Standard Param** | 48×48px | Основные параметры | Cutoff, Resonance, Attack, Decay |
+| **Small Mod** | 32×32px | Модуляция, тонкие настройки | LFO Rate, Detune, Wheel Routing |
+| **Step/Encoder** | 40×40px | Дискретные значения | Voices, Octave, Waveform Select |
+
+---
+
+## 📋 Универсальные состояния (Knob States)
+
+```
+✅ Default          — исходное положение (Default Value)
+✅ Hover           — курсор над кнопкой (подсветка кольца)
+✅ Dragging        — перетаскивание (тень + курсор grab)
+✅ Focused         — фокус клавиатуры (внешняя обводка)
+✅ Disabled        — неактивна (полупрозрачность 50%)
+✅ AutomationOn    — автоматизировано DAW (синее пульсирующее кольцо)
+✅ ValueChanged    — изменено пользователем (точка индикации)
+✅ Min/Max         — крайние положения (визуальный стоп)
+```
+
+> 🎨 **Визуальные маркеры состояний:**
+> - `Hover`: LED ring brightness +20%
+> - `Dragging`: Knob lifts 2px (shadow), cursor changes
+> - `AutomationOn`: Outer ring pulses Blue (#4A90E2)
+> - `ValueChanged`: White dot appears at 12 o'clock position
+> - `Section Color`: LED ring takes color of category (Osc=Blue, Filter=Green...)
+
+---
+
+## 🎛️ Имена PNG файлов по категориям
+
+### 1. 🎚️ MASTER (Large Knobs)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Master_Knob_Large_Default_50.png` | Volume at 50% (default) |
+| `Fury800_Master_Knob_Large_Hover_50.png` | Hover state |
+| `Fury800_Master_Knob_Large_Drag_75.png` | Being dragged to 75% |
+| `Fury800_Master_Knob_Large_Auto_50.png` | Automation active |
+| `Fury800_Master_Knob_Large_Modified_80.png` | Value changed from default |
+| `Fury800_Master_Knob_Large_Min_0.png` | Minimum position (-45°) |
+| `Fury800_Master_Knob_Large_Max_100.png` | Maximum position (+45°) |
+
+### 2. 🎛️ OSCILLATORS (Standard Knobs)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Oscillators_Knob_Std_Default_50.png` | DCO Level default |
+| `Fury800_Oscillators_Knob_Std_Hover_50.png` | Hover state |
+| `Fury800_Oscillators_Knob_Std_Auto_50.png` | DCO1 Octave automated |
+| `Fury800_Oscillators_Knob_Std_Modified_25.png` | Detune changed |
+| `Fury800_Oscillators_Knob_Std_Disabled.png` | Grayed out (e.g., DCO2 in Mono) |
+| `Fury800_Oscillators_Knob_Std_Tickmarks.png` | Texture: Ticks only (for overlay) |
+
+### 3. 🔊 FILTERS (Standard Knobs + LED Ring)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Filters_Knob_Cutoff_Default_100.png` | Cutoff fully open |
+| `Fury800_Filters_Knob_Cutoff_Hover_50.png` | Hover at mid |
+| `Fury800_Filters_Knob_Reso_Default_0.png` | Resonance min |
+| `Fury800_Filters_Knob_Reso_Max_100.png` | Resonance self-oscillation |
+| `Fury800_Filters_Knob_LED_Ring_Green.png` | LED Ring texture (Green) |
+| `Fury800_Filters_Knob_LED_Ring_Empty.png` | LED Ring off |
+
+### 4. 📈 ENVELOPES (Small Knobs)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Envelopes_Knob_Small_Default_0.png` | Attack at 0 |
+| `Fury800_Filters_Knob_Small_Hover_50.png` | Hover state |
+| `Fury800_Envelopes_Knob_Sustain_Default_100.png` | Sustain max |
+| `Fury800_Envelopes_Knob_Small_Auto_50.png` | Envelope automated |
+| `Fury800_Envelopes_Knob_Small_ValueDot.png` | Overlay: White modification dot |
+
+### 5. 🎭 MODULATION (Small Knobs)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Modulation_Knob_LFO_Default_53.png` | LFO Freq default (0.53) |
+| `Fury800_Modulation_Knob_Wheel_Default_0.png` | Mod Wheel min |
+| `Fury800_Modulation_Knob_Small_Auto_50.png` | Mod matrix automated |
+| `Fury800_Modulation_Knob_Small_Purple_Ring.png` | LED Ring texture (Purple) |
+
+### 6. ⚙️ GLOBAL / OTHER (Step/Encoder Knobs)
+| PNG Filename | Description |
+|--------------|-------------|
+| `Fury800_Global_Knob_Voices_Step_8.png` | Voices set to 8 |
+| `Fury800_Global_Knob_Octave_Step_0.png` | Octave centered |
+| `Fury800_Global_Knob_Seq_Freq_Default.png` | Sequencer Freq |
+| `Fury800_Global_Knob_GodMode_Warning.png` | God Mode knob (Red glow) |
+
+---
+
+## 🎨 Визуальная спецификация (Visual Specs)
+
+### Углы поворота (Rotation Angles)
+```
+🔘 Min Value:  -135° (7:30 position)
+🔘 Default:     0°    (12:00 position)
+🔘 Max Value:  +135° (4:30 position)
+🔘 Total Range: 270°
+```
+
+### Цвета LED-колец (LED Ring Colors)
+| Категория | Color Hex | Usage |
+|-----------|-----------|-------|
+| Master | 🔴 #D0021B | Volume/Gain |
+| Oscillators | 🔵 #4A90E2 | DCO/Noise |
+| Filters | 🟢 #7ED321 | Cutoff/Res |
+| Envelopes | 🟠 #F5A623 | ADSR |
+| Modulation | 🟣 #BD10E0 | LFO/Wheel |
+| Effects | 🟡 #F8E71C | Chorus |
+| Global | ⚪ #FFFFFF | Seq/Voices |
+
+### Размеры слоёв (Layer Sizes for Export)
+```
+🔘 Knob Cap (Top):      48×48px (Standard)
+🔘 Knob Ring (Bottom):  52×52px (Slightly larger for glow)
+🔘 Hit Area:            64×64px (Transparent padding for mouse)
+🔘 LED Ring Overlay:    50×50px (Alpha channel for value mask)
+```
+
+---
+
+## 🗂️ Структура экспорта (Folder Structure)
+
+```
+03_States_Variants/Knobs/
+├── _Textures/
+│   ├── Fury800_Knob_Cap_Standard.png       ← Base cap texture
+│   ├── Fury800_Knob_Cap_Large.png          ← Master cap
+│   ├── Fury800_Knob_Cap_Small.png          ← Mod cap
+│   ├── Fury800_Knob_Ring_LED_Segment.png   ← Single LED segment
+│   └── Fury800_Knob_Background_Plate.png   ← Underlying pot texture
+├── Master/
+│   └── Fury800_Master_Knob_[State]_[Value].png
+├── Oscillators/
+│   └── Fury800_Oscillators_Knob_[State]_[Value].png
+├── Filters/
+│   └── Fury800_Filters_Knob_[State]_[Value].png
+├── Envelopes/
+│   └── Fury800_Envelopes_Knob_[State]_[Value].png
+├── Modulation/
+│   └── Fury800_Modulation_Knob_[State]_[Value].png
+└── _Overlays/
+    ├── Fury800_Overlay_Automation_Ring.png
+    ├── Fury800_Overlay_Value_Dot.png
+    └── Fury800_Overlay_Focus_Glow.png
+```
+
+---
+
+## 🔄 Спрайт-листы для разработчиков (Sprite Sheets)
+
+> Для оптимизации загрузки текстур в плагин.
+
+| File Name | Grid | Description |
+|-----------|------|-------------|
+| `Fury800_Knobs_Sprite_Standard.png` | 10×6 | All states for Standard Knob (Default, Hover, Auto...) |
+| `Fury800_Knobs_Sprite_Large.png` | 10×6 | All states for Master Knob |
+| `Fury800_Knobs_Sprite_LED_Rings.png` | 36×1 | 36 steps of LED ring fill (0% to 100%) |
+| `Fury800_Knobs_Sprite_Values.png` | 27×1 | 27 angle positions (10° steps) for static renders |
+
+---
+
+## 🚀 Чеклист для дизайнера (Knob Checklist)
+
+```markdown
+[ ] Создать master-компонент Knob с Variants (Figma)
+[ ] Настроить 270° range (Min -135°, Max +135°)
+[ ] Добавить LED Ring component (color by section)
+[ ] Создать состояния: Default, Hover, Drag, Auto, Modified
+[ ] Экспортировать текстуры (Cap, Ring, Plate) отдельно
+[ ] Экспортировать спрайт-листы для dev
+[ ] Проверить контраст индикаторов (White Dot on Dark BG)
+[ ] Добавить слой "Hit Area" (64×64px) для мокапов
+[ ] Подготовить SVG версии для векторной реализации (рекомендуется)
+[ ] Создать документацию: "Knob Behavior Spec.pdf"
+```
+
+---
+
+## 📤 Dev Handoff: JSON Spec Example (Knob)
+
+```json
+{
+  "component": "Fury800_Standard_Knob",
+  "type": "rotary",
+  "range_degrees": 270,
+  "min_angle": -135,
+  "max_angle": 135,
+  "default_angle": 0,
+  "states": {
+    "default": { "texture": "knob_cap_std.png", "ring": "off" },
+    "hover": { "texture": "knob_cap_std.png", "ring": "bright_20" },
+    "drag": { "texture": "knob_cap_std_lift.png", "shadow": true },
+    "automation": { "overlay": "ring_pulse_blue.png", "freq_hz": 2 },
+    "modified": { "overlay": "dot_white_12oclock.png" }
+  },
+  "colors": {
+    "oscillators": "#4A90E2",
+    "filters": "#7ED321",
+    "master": "#D0021B"
+  },
+  "export": {
+    "sprite": "Fury800_Knobs_Sprite_Standard.png",
+    "frames": 60
+  }
+}
+```
+
+---
+
+> 💡 **Pro Tip:** Для VST3 лучше использовать **SVG** для кнопок (масштабируемость без потерь), а **PNG** оставлять только для сложных текстур (металл, царапины, неон). Если движок (JUCE/iPlug) поддерживает векторную отрисовку — отдавайте разработчикам SVG.
+
+Нужен шаблон SVG для кнопок или спецификация для LED-колец (количество сегментов)? 🎹✨
