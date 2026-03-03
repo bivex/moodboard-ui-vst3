@@ -39,3 +39,8 @@
   * [ ] Decorative elements
 * [ ] Ensure pixel-perfect dimensions
 * [ ] Export in required resolutions (1x / 2x / 3x)
+
+
+Example words 
+
+Individual UI components: a cutoff knob with fine tick marks, a resonance knob with a pointer, a volume knob with a rubber grip texture, a glowing power-on button, a matte power-off button, and a segmented LED display, all separated and floating on a 100% transparent alpha channel, no background, no mockup, in a soft modern aesthetic.
