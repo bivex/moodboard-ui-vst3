@@ -1,5 +1,5 @@
 take image 4 elems from nano babana , use omniparser. crop it .
 
-drop 💧 to tracer via good settings. (specific for elems)
+drop 💧 to vtracer via good settings. (specific for elems)
 
 scale svg to needed.
